@@ -16,6 +16,8 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"os"
 	"strings"
 
 	"github.com/golang/glog"
@@ -33,13 +35,17 @@ var (
 
 func init() {
 	// Change glog default log level to INFO.
+	// Note glog is not initialized yet, so we can only use fmt for printing
+	// errors.
 	err := flag.Set("logtostderr", "true")
 	if err != nil {
-		glog.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 	err = flag.Set("stderrthreshold", "INFO")
 	if err != nil {
-		glog.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 	rootCmd.PersistentFlags().Float64Var(&confidenceThreshold, "confidence_threshold", 0.9, "Minimum confidence required in order to positively identify a license.")
 }
