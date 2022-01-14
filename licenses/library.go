@@ -28,14 +28,6 @@ import (
 	"golang.org/x/tools/go/packages"
 )
 
-var (
-	// TODO(RJPercival): Support replacing "master" with Go Module version
-	repoPathPrefixes = map[string]string{
-		"github.com":    "blob/master/",
-		"bitbucket.org": "src/master/",
-	}
-)
-
 // Library is a collection of packages covered by the same license file.
 type Library struct {
 	// LicensePath is the path of the file containing the library's license.
